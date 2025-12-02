@@ -3,13 +3,14 @@ on: [workflow_dispatch]
 
 jobs:
   build:
-    runs-on: macos-latest
+    # UPDATED: Use macOS 15 to get Xcode 16 (iOS 18 SDK)
+    runs-on: macos-15
     
     steps:
       - uses: actions/checkout@v3
       
-      # NEW STEP: Delete the Vision Pro plugin so the build doesn't crash
-      - name: Remove Spatial Controller
+      # Keep these deletions to avoid Vision Pro errors
+      - name: Remove Broken Plugins
         run: |
           rm -rf plug-ins/Apple.SpatialController
           rm -rf plug-ins/Apple.PHASE
