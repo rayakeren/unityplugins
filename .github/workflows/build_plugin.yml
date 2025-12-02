@@ -1,5 +1,5 @@
 name: Build Apple Plugin
-on: [workflow_dispatch] # Allows you to click a button to start
+on: [workflow_dispatch]
 
 jobs:
   build:
@@ -7,6 +7,13 @@ jobs:
     
     steps:
       - uses: actions/checkout@v3
+      
+      # NEW STEP: Delete the Vision Pro plugin so the build doesn't crash
+      - name: Remove Spatial Controller
+        run: |
+          rm -rf plug-ins/Apple.SpatialController
+          rm -rf plug-ins/Apple.PHASE
+          rm -rf plug-ins/Apple.DataCollection
       
       - name: Run Build Script
         run: python3 build.py
